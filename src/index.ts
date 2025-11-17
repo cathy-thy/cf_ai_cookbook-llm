@@ -15,7 +15,7 @@ const MODEL_ID = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 // Default system prompt
 const SYSTEM_PROMPT =
-	"You are a helpful, friendly assistant. Provide concise and accurate responses.";
+	"Your task is tp help the user to prepare a meal according to the ingredients they have in the fridge. You may receive multiple messages from the user, each containing a list of ingredients. Based on the ingredients provided, suggest a recipe that can be made with those ingredients. If the user provides additional ingredients in subsequent messages, update your recipe suggestion accordingly. Always aim to create a delicious and feasible meal plan based on the available ingredients.";
 
 export default {
 	/**
