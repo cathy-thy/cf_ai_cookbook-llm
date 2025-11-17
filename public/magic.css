@@ -1,92 +1,132 @@
-/* === GLOBAL MAGIC FONTS === */
+/* === GLOBAL MAGIC FONTS & BASE === */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; /* ❗ prevents full-page scrollbar */
+    overflow: hidden;
   }
   
   body {
-    background-color: #1a1f1a;
+    background: radial-gradient(circle at 30% 30%, #232923, #151815 70%);
     color: #e7fbe6;
     font-family: 'Cormorant Garamond', serif;
   }
   
-  /* === SPLIT LAYOUT === */
+  /* === LAYOUT WRAPPER === */
   .layout {
     display: flex;
     height: 100vh;
-    padding: 3rem;
+    padding: 2rem;
     box-sizing: border-box;
-    gap: 2rem;
-    overflow: hidden; /* left/right panels never escape */
+    gap: 1.5rem; /* tighter & cleaner */
+    overflow: hidden;
   }
   
-  /* === LEFT PANEL (Chat Area) === */
+  /* ============================================================
+     LEFT PANEL — Wizard, Guide, Dialogue
+     ============================================================ */
   .left-panel {
-    width: 58%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     border-right: 2px solid #2d3b2e;
-    overflow: hidden; /* ensures internal scroll stays internal */
+    overflow: hidden;
+    justify-content: flex-start;
     position: relative;
   }
   
-  /* Wizard image */
+  /* === Floating Guide Box (Aligned With Chat) === */
+  .guide-floating {
+    position: fixed;
+    top: 1.5rem;
+    left: 3rem; /* aligns perfectly with chat */
+    background: rgba(243,231,195,0.12);
+    border: 1px solid rgba(134,196,124,0.45);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    width: 300px;
+    color: #dfffe1;
+    box-shadow: 0 0 14px rgba(134,196,124,0.35);
+    backdrop-filter: blur(4px);
+    font-size: 1.1rem;
+    z-index: 999;
+  }
+  
+  /* === Wizard Area === */
   .wizard-container {
     text-align: center;
     margin-bottom: 0.5rem;
+    position: relative;
+  }
+  
+  /* Soft magical glow behind wizard */
+  .wizard-container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 380px;
+    height: 380px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+        rgba(134,196,124,0.28),
+        transparent 70%);
+    filter: blur(45px);
+    z-index: -1;
   }
   
   .wizard-img {
     width: 40%;
     filter: drop-shadow(0 0 25px rgba(134,196,124,0.45));
     animation: wizardGlow 3s ease-in-out infinite alternate;
+    margin-top: -0.8rem;
   }
   
   @keyframes wizardGlow {
-    from { filter: drop-shadow(0 0 10px rgba(134,196,124,0.3)); }
-    to   { filter: drop-shadow(0 0 25px rgba(134,196,124,0.65)); }
+    from { filter: drop-shadow(0 0 12px rgba(134,196,124,0.3)); }
+    to   { filter: drop-shadow(0 0 26px rgba(134,196,124,0.65)); }
   }
   
-  /* === CHAT MESSAGES BOX === */
+  /* ============================================================
+     CHAT BOX — Dialogue + Messages
+     ============================================================ */
   #chat-messages {
     background: rgba(35,46,37,0.75);
-    padding: 1.2rem;
-    border-radius: 12px;
-    border: 2px solid #86c47c;
-    box-shadow: 0 0 16px rgba(134,196,124,0.2);
+    padding: 1.8rem;
+    border-radius: 16px;
+    border: 2px solid rgba(134,196,124,0.45);
+    box-shadow: 0 0 18px rgba(134,196,124,0.25);
   
     flex: 1;
     min-height: 0;
     overflow-y: auto;
   
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+  
+    margin-top: -1.2rem; /* pull closer to wizard */
   }
   
-  /* Styled scrollbars — green magic herbs */
-  #chat-messages::-webkit-scrollbar {
-    width: 10px;
-  }
+  /* Scrollbars */
+  #chat-messages::-webkit-scrollbar { width: 8px; }
   #chat-messages::-webkit-scrollbar-track {
     background: rgba(0,0,0,0.25);
     border-radius: 10px;
   }
   #chat-messages::-webkit-scrollbar-thumb {
-    background: #86c47c;
+    background: #6ea86b;
     border-radius: 10px;
-    border: 2px solid rgba(0,0,0,0.25);
+    border: 2px solid rgba(0,0,0,0.2);
   }
   
-  /* Firefox */
   #chat-messages {
     scrollbar-width: thin;
-    scrollbar-color: #86c47c rgba(0,0,0,0.25);
+    scrollbar-color: #6ea86b rgba(0,0,0,0.25);
   }
   
-  /* Message text enhancements */
+  /* Assistant & User message styling */
   .assistant-message p {
     text-shadow: 0 0 6px rgba(134,196,124,0.7);
   }
@@ -96,11 +136,14 @@ html, body {
     font-style: italic;
   }
   
-  /* === TYPING INDICATOR (Wizard Thinking) === */
+  /* ============================================================
+     TYPING INDICATOR
+     ============================================================ */
   #typing-indicator {
     position: absolute;
-    right: 5%;
-    top: 10%;
+    top: 5%;
+    left: 80%;
+    transform: translateX(-50%);
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
     color: #d8b4fe;
@@ -117,37 +160,37 @@ html, body {
     100% { opacity: 0.4; text-shadow: 0 0 4px rgba(168,85,247,0.6); }
   }
   
-  /* === INPUT BAR === */
+  /* ============================================================
+     INPUT BAR
+     ============================================================ */
   .player-input-bar {
     display: flex;
-    margin-top: auto;
+    margin-top: 1rem;
     gap: 10px;
   }
   
   #user-input {
     flex: 1;
-    padding: 0.8rem;
-    border-radius: 10px;
+    padding: 0.9rem;
+    border-radius: 12px;
     resize: none;
-    border: 2px solid #86c47c;
-    background: rgba(243,231,195,0.12);
-    backdrop-filter: blur(3px);
+    border: 2px solid rgba(134,196,124,0.45);
+    background: rgba(243,231,195,0.10);
     color: #dfffe1;
-    font-family: 'Cormorant Garamond', serif;
     font-size: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
     box-shadow: inset 0 0 12px rgba(134,196,124,0.25);
     transition: 0.25s ease;
   }
   
   #user-input:focus {
     outline: none;
-    box-shadow: 0 0 14px rgba(134,196,124,0.55);
+    box-shadow: 0 0 16px rgba(134,196,124,0.55);
     transform: scale(1.02);
   }
   
-  /* Send button */
   #send-button {
-    padding: 0 1.3rem;
+    padding: 0 1.5rem;
     border-radius: 10px;
     background: #86c47c;
     border: none;
@@ -165,9 +208,11 @@ html, body {
     transform: translateY(-2px);
   }
   
-  /* === RIGHT PANEL (Cookbook Scroll) === */
+  /* ============================================================
+     RIGHT PANEL — Recipe Scroll
+     ============================================================ */
   .right-panel {
-    width: 42%;
+    width: 45%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -175,79 +220,35 @@ html, body {
     overflow: hidden;
   }
   
-  /* Antique Scroll */
   .cookbook-scroll {
-    flex: 1;        /* allows scrolling area to grow */
-    min-height: 0;  /* CRITICAL: allows scrollbars to appear */
+    flex: 1;
+    min-height: 0;
+    max-height: 92%;
     overflow-y: auto;
   
     background: #f3e7c3;
-    padding: 1.3rem;
-    border-radius: 14px;
+    padding: 1.8rem;
+    border-radius: 18px;
     border: 3px solid #cbb892;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.25);
-  
-    font-family: 'Uncial Antiqua', serif;
   }
   
-  /* Scrollbar: Golden parchment */
-  .cookbook-scroll::-webkit-scrollbar {
-    width: 10px;
-  }
-  .cookbook-scroll::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.15);
-    border-radius: 10px;
-  }
+  .cookbook-scroll::-webkit-scrollbar { width: 10px; }
   .cookbook-scroll::-webkit-scrollbar-thumb {
     background: #c29a5a;
     border-radius: 10px;
     border: 2px solid rgba(0,0,0,0.15);
   }
   
-  /* Title uses decorative font */
   .cookbook-scroll h2 {
     margin-top: 0;
     color: #4b3e26;
     font-family: 'Cinzel Decorative', serif;
   }
   
-  /* Recipe text */
   #cookbook-output {
     color: #3b2f1e;
     white-space: pre-wrap;
     font-size: 1.3rem;
     line-height: 1.7rem;
-  }
-
-  .message {
-    animation: floatIn 0.35s ease-out;
-  }
-  
-  @keyframes floatIn {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  .guide-box {
-    position: fixed;
-    padding: 1.2rem;
-  
-    background: rgba(243,231,195,0.12);
-    border: 1px solid #86c47c;
-    border-radius: 12px;
-    width: 300px;
-  
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    color: #dfffe1;
-  
-    box-shadow: 0 0 14px rgba(134,196,124,0.35);
-    backdrop-filter: blur(4px);
-  
-    z-index: 999; /* float above everything */
   }
