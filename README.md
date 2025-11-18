@@ -96,17 +96,13 @@ http://localhost:8787
 
 ---
 
-## ☁️ Deployment
+## 🌐 Try It Online
 
-### Deploy to Cloudflare Workers
-```bash
-npm run deploy
-```
+No setup is required — simply open the live demo:
 
-### View real-time logs
-```bash
-npx wrangler tail
-```
+👉 **https://cookbook-llm.cathytsui-git.workers.dev/**
+
+The wizard is already deployed using Cloudflare Workers and ready to brew recipes for you.
 
 ---
 
