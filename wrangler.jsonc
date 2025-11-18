@@ -6,7 +6,10 @@
 	"name": "cookbook-llm",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-10-08",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./public"
@@ -17,5 +20,12 @@
 	"ai": {
 		"binding": "AI"
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	"kv_namespaces": [
+		{
+			"binding": "COOKBOOK_CHAT_MEMORY",
+			"id": "161cd0e926614fdc8e2d9961b563fc86",
+			"remote": true
+		}
+	]
 }

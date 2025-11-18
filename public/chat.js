@@ -4,54 +4,57 @@ const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const cookbookOutput = document.getElementById("cookbook-output");
 
+let sessionId = localStorage.getItem("wizard-session-id") || null;
+
 async function sendMessage() {
-	const message = userInput.value.trim();
-	if (!message) return;
-  
-	// Add user message to left panel
-	const userEl = document.createElement("div");
-	userEl.className = "message user-message";
-	userEl.innerHTML = `<p>${message}</p>`;
-	chatMessages.appendChild(userEl);
-  
-	userInput.value = "";
-  
-	// ⭐ Show indicator when AI starts thinking
-	typingIndicator.style.display = "block";
-  
-	const response = await fetch("/api/chat", {
-	  method: "POST",
-	  headers: { "Content-Type": "application/json" },
-	  body: JSON.stringify({
-		messages: [
-		  { role: "system", content: "You are a wizard who provides recipes." },
-		  { role: "user", content: message }
-		]
-	  })
-	});
-  
-	const data = await response.json();
-	const reply = data.response || "Hmm… the spirits are silent.";
-  
-	// ⭐ Hide indicator when done
-	typingIndicator.style.display = "none";
-  
-	// Split wizard dialogue + recipe
-	const lines = reply.split("\n");
-	const wizardDialogue = lines[0];
-	const recipeText = lines.slice(1).join("\n").trim();
-  
-	// LEFT SIDE WIZARD DIALOGUE
-	const wizardEl = document.createElement("div");
-	wizardEl.className = "message assistant-message";
-	wizardEl.innerHTML = `<p>${wizardDialogue}</p>`;
-	chatMessages.appendChild(wizardEl);
-  
-	// RIGHT SIDE RECIPE OUTPUT
-	if (recipeText.length > 0) {
-	  cookbookOutput.textContent = recipeText;
-	}
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  const userEl = document.createElement("div");
+  userEl.className = "message user-message";
+  userEl.innerHTML = `<p>${message}</p>`;
+  chatMessages.appendChild(userEl);
+
+  userInput.value = "";
+  typingIndicator.style.display = "block";
+
+  const headers = { "Content-Type": "application/json" };
+  if (sessionId) headers["X-Session-ID"] = sessionId;
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      messages: [
+        { role: "user", content: message }
+      ]
+    })
+  });
+
+  const data = await response.json();
+
+  // ALWAYS update sessionId
+  if (data.sessionId) {
+    sessionId = data.sessionId;
+    localStorage.setItem("wizard-session-id", sessionId);
   }
+
+  const reply = data.response || "Hmm… the spirits are silent.";
+  typingIndicator.style.display = "none";
+
+  const lines = reply.split("\n");
+  const wizardDialogue = lines[0];
+  const recipeText = lines.slice(1).join("\n").trim();
+
+  const wizardEl = document.createElement("div");
+  wizardEl.className = "message assistant-message";
+  wizardEl.innerHTML = `<p>${wizardDialogue}</p>`;
+  chatMessages.appendChild(wizardEl);
+
+  if (recipeText.length > 0) {
+    cookbookOutput.textContent = recipeText;
+  }
+}
 
 sendButton.onclick = sendMessage;
 
