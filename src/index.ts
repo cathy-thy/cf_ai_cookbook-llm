@@ -322,15 +322,27 @@ async function handleChatRequest(request: Request, env: Env): Promise<Response> 
 		allMessages.unshift({ role: "system", content: SYSTEM_PROMPT });
 	  }
   
-	  // Non-streaming AI call
-	  const aiResponse = await env.AI.run(
-		MODEL_ID,
-		{ messages: allMessages, max_tokens: 1024 },
-		{ returnRawResponse: false }
-	  );
-  
-	  // Extract assistant content
-	  const assistantMessage = aiResponse.response || aiResponse.result || "";
+	  // Non-streaming AI call with error handling for quota/billing
+	  let assistantMessage = "";
+
+	  try {
+		const aiResponse = await env.AI.run(
+		  MODEL_ID,
+		  { messages: allMessages, max_tokens: 1024 },
+		  { returnRawResponse: false }
+		);
+
+		assistantMessage = aiResponse.response || aiResponse.result || "";
+	  } catch (err: any) {
+		// Cloudflare often returns "AiError: 3003 / 3030 / quota exceeded"
+		const errorText = String(err);
+
+		if (errorText.includes("quota") || errorText.includes("rate") || errorText.includes("limit")) {
+		  assistantMessage = "✨ The Wizard is out gathering magic plants to restore his power… Please try again soon!";
+		} else {
+		  assistantMessage = "⚠️ The Wizard stumbled upon an unknown spell error. Try again in a moment!";
+		}
+	  }
   
 	  // Add to memory
 	  allMessages.push({ role: "assistant", content: assistantMessage });
