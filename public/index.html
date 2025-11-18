@@ -17,17 +17,17 @@
       <!-- LEFT SIDE: Wizard + Dialogue -->
       <div class="left-panel">
 
-        <div class="wizard-container">
-          <img src="wizard.png" class="wizard-img" alt="wizard">
+        <div class="wizard-guide-wrap">
+          <img src="wizard.png" class="wizard-img" alt="wizard" tabindex="0">
+          <div class="guide-floating" tabindex="0">
+            ✨ <strong>How it works:</strong><br>
+            Tell the wizard what ingredients you have,<br>
+            and he will brew a magical recipe for you!
+          </div>
         </div>
-		<div class="guide-floating">
-			✨ <strong>How it works:</strong><br>
-			Tell the wizard what ingredients you have,<br>
-			and he will brew a magical recipe for you!
-		  </div>
 
         <!-- Chat messages (required ID) -->
-        <div id="chat-messages" class="dialogue-box">
+        <div id="chat-messages" class="dialogue-box" tabindex="0">
           <div class="message assistant-message">
             <p>The Wizard: "Greetings traveler… what ingredients do you bring to my cauldron?"</p>
           </div>
@@ -45,7 +45,7 @@
             placeholder="Speak your ingredients…"
             rows="1"
           ></textarea>
-          <button id="send-button">Send</button>
+          <button id="send-button" aria-label="Send message">Send</button>
         </div>
 
       </div>
@@ -54,7 +54,7 @@
       <div class="right-panel">
         <div class="cookbook-scroll">
           <h2>📜 Your Magic Recipe</h2>
-          <div id="cookbook-output"></div>
+          <div id="cookbook-output" tabindex="0"></div>
         </div>
       </div>
 

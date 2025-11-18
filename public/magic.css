@@ -2,9 +2,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
+}
   
   body {
     background: radial-gradient(circle at 30% 30%, #232923, #151815 70%);
@@ -12,10 +10,15 @@ html, body {
     font-family: 'Cormorant Garamond', serif;
   }
   
+  /* Global focus style */
+  *:focus {
+    outline: 3px solid #86c47c;
+    outline-offset: 3px;
+  }
+  
   /* === LAYOUT WRAPPER === */
   .layout {
     display: flex;
-    height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
     gap: 1.5rem; /* tighter & cleaner */
@@ -35,22 +38,26 @@ html, body {
     justify-content: flex-start;
     position: relative;
   }
+
+  .wizard-guide-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+    justify-content: flex-start;
+  }
   
   /* === Floating Guide Box (Aligned With Chat) === */
   .guide-floating {
-    position: fixed;
-    top: 1.5rem;
-    left: 3rem; /* aligns perfectly with chat */
     background: rgba(243,231,195,0.12);
     border: 1px solid rgba(134,196,124,0.45);
     border-radius: 12px;
     padding: 1rem 1.2rem;
-    width: 300px;
+    width: 200px;
     color: #dfffe1;
     box-shadow: 0 0 14px rgba(134,196,124,0.35);
     backdrop-filter: blur(4px);
     font-size: 1.1rem;
-    z-index: 999;
   }
   
   /* === Wizard Area === */
@@ -81,6 +88,7 @@ html, body {
     filter: drop-shadow(0 0 25px rgba(134,196,124,0.45));
     animation: wizardGlow 3s ease-in-out infinite alternate;
     margin-top: -0.8rem;
+    transform: scaleX(-1);
   }
   
   @keyframes wizardGlow {
@@ -124,6 +132,11 @@ html, body {
   #chat-messages {
     scrollbar-width: thin;
     scrollbar-color: #6ea86b rgba(0,0,0,0.25);
+  }
+  
+  /* Scrollbar thumb color on hover */
+  #chat-messages:hover::-webkit-scrollbar-thumb {
+    background: #8bd18a;
   }
   
   /* Assistant & User message styling */
@@ -240,6 +253,11 @@ html, body {
     border: 2px solid rgba(0,0,0,0.15);
   }
   
+  /* Scrollbar thumb color on hover */
+  .cookbook-scroll:hover::-webkit-scrollbar-thumb {
+    background: #8bd18a;
+  }
+  
   .cookbook-scroll h2 {
     margin-top: 0;
     color: #4b3e26;
@@ -251,4 +269,47 @@ html, body {
     white-space: pre-wrap;
     font-size: 1.3rem;
     line-height: 1.7rem;
+  }
+  
+  /* Mobile responsive */
+  @media (max-width: 900px) {
+    html, body {
+      height: auto;
+      overflow: auto;
+    }
+    .layout {
+      height: auto;
+      flex-direction: column;
+      overflow: visible;
+      padding: 1rem;
+    }
+    .left-panel, .right-panel {
+      width: 100%;
+      padding: 0.5rem;
+    }
+    .wizard-img {
+      width: 60%;
+    }
+    #chat-messages {
+      font-size: 1.1rem;
+    }
+    #user-input {
+      font-size: 1rem;
+    }
+    .guide-floating {
+      position: relative;
+      top: 0;
+      left: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: 901px) {
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    .layout {
+      height: 100vh;
+    }
   }
