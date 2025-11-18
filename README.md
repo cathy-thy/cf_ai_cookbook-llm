@@ -4,12 +4,6 @@
 ![CSS](https://img.shields.io/badge/CSS-TECH-1572B6?style=for-the-badge)
 ![JavaScript](https://img.shields.io/badge/JavaScript-TECH-F7DF1E?style=for-the-badge)
 
-*A magical recipe assistant powered by Cloudflare Workers AI*
-
-The **Wizard Cookbook** is an immersive AI-powered cooking companion.  
-Tell the wizard what ingredients you have, and he will conjure a creative recipe on the spot.  
-The UI blends a modern chat interface with magical, fantasy‑inspired visuals, including glowing effects, parchment‑style textures, and wizardly animations.
-
 This project runs entirely on **Cloudflare Workers**, with persistent conversation memory and a responsive, accessible front-end.
 
 ---
@@ -21,6 +15,8 @@ No setup is required — simply open the live demo:
 👉 **https://cookbook-llm.cathytsui-git.workers.dev/**
 
 The wizard is already deployed using Cloudflare Workers and ready to brew recipes for you.
+
+https://github.com/user-attachments/assets/05c4c0e5-fefb-4603-97b1-4d8f50ef69ca
 
 ---
 
