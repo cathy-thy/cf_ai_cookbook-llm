@@ -14,6 +14,8 @@ async function sendMessage() {
   userEl.className = "message user-message";
   userEl.innerHTML = `<p>${message}</p>`;
   chatMessages.appendChild(userEl);
+  // Auto-scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   userInput.value = "";
   typingIndicator.style.display = "block";
@@ -50,6 +52,8 @@ async function sendMessage() {
   wizardEl.className = "message assistant-message";
   wizardEl.innerHTML = `<p>${wizardDialogue}</p>`;
   chatMessages.appendChild(wizardEl);
+  // Auto-scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   if (recipeText.length > 0) {
     cookbookOutput.textContent = recipeText;
