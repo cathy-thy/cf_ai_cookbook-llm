@@ -1,4 +1,9 @@
 # 🪄 Wizard Cookbook  
+![Workers AI](https://img.shields.io/badge/Workers%20AI-TECH-1E90FF?style=for-the-badge)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare%20Workers-TECH-F38020?style=for-the-badge)
+![CSS](https://img.shields.io/badge/CSS-TECH-1572B6?style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-TECH-F7DF1E?style=for-the-badge)
+
 *A magical recipe assistant powered by Cloudflare Workers AI*
 
 The **Wizard Cookbook** is an immersive AI-powered cooking companion.  
@@ -6,6 +11,16 @@ Tell the wizard what ingredients you have, and he will conjure a creative recipe
 The UI blends a modern chat interface with magical, fantasy‑inspired visuals, including glowing effects, parchment‑style textures, and wizardly animations.
 
 This project runs entirely on **Cloudflare Workers**, with persistent conversation memory and a responsive, accessible front-end.
+
+---
+
+## 🌐 Try It Online
+
+No setup is required — simply open the live demo:
+
+👉 **https://cookbook-llm.cathytsui-git.workers.dev/**
+
+The wizard is already deployed using Cloudflare Workers and ready to brew recipes for you.
 
 ---
 
@@ -66,45 +81,6 @@ A completely custom-designed wizarding interface featuring:
 - Workers AI for LLM inference
 - KV storage for conversation memory
 - TypeScript
-
----
-
-## 🚀 Getting Started
-
-### 1. Install dependencies
-```bash
-npm install
-```
-
-### 2. Generate Cloudflare Worker typings
-```bash
-npm run cf-typegen
-```
-
-### 3. Start development server
-```bash
-npm run dev
-```
-
-Your local app will run at:
-
-```
-http://localhost:8787
-```
-
-> **Important:** Workers AI API calls still hit your Cloudflare account during local dev and may incur usage.
-
----
-
-## 🌐 Try It Online
-
-No setup is required — simply open the live demo:
-
-👉 **https://cookbook-llm.cathytsui-git.workers.dev/**
-
-The wizard is already deployed using Cloudflare Workers and ready to brew recipes for you.
-
----
 
 ## 📁 Project Structure
 
